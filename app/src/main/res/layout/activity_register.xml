@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".register">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/register_title"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/georgia"
+
+                android:background="@drawable/rounded_background"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_a_new_account"
+                android:fontFamily="@font/kasepi"
+
+                android:background="@drawable/rounded_background"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="16sp"
+                android:layout_marginBottom="20dp"/>
+
+
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_email"
+                android:fontFamily="@font/kasepi"
+                android:background="@drawable/textview_border"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                android:layout_margin="4dp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/enter_your_username"
+                android:fontFamily="@font/kasepi"
+                android:inputType="text"
+                android:background="@drawable/textview_border"
+                android:padding="12dp"
+                android:layout_margin="4dp"
+                />
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_first_name"
+                android:fontFamily="@font/kasepi"
+                android:padding="12dp"
+
+                android:layout_margin="4dp"
+                android:background="@drawable/textview_border"
+                android:inputType="text"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kasepi"
+                android:padding="12dp"
+
+                android:background="@drawable/textview_border"
+                android:hint="@string/enter_last_name"
+                android:inputType="text"
+                android:layout_marginBottom="8dp"/>
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:fontFamily="@font/kasepi"
+                android:layout_margin="4dp"
+                android:padding="12dp"
+
+                android:background="@drawable/textview_border"
+                android:inputType="textPassword"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/passwordAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/repeat_password"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/kasepi"
+                android:padding="12dp"
+
+                android:background="@drawable/textview_border"
+                android:inputType="textPassword"
+                android:layout_marginBottom="16dp"/>
+
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:backgroundTint="#4CAF50"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginVertical="9dp"
+                android:fontFamily="@font/kasepi"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/loginLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/already_have_an_account_login"
+                android:fontFamily="@font/kasepi"
+                android:textColor="#2962FF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"/>
+
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
