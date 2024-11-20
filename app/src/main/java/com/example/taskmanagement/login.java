@@ -15,6 +15,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class login extends AppCompatActivity {
 
     private EditText usernameEditText, passwordEditText;
@@ -30,13 +42,6 @@ public class login extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.loginButton);
         TextView registerLink = findViewById(R.id.registerLink);
-
-        // Set up window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         // Set up login button click listener
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +61,8 @@ public class login extends AppCompatActivity {
     }
 
     private void loginUser() {
-        // Get input values
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-
-        // Validate input fields
         if (TextUtils.isEmpty(username)) {
             usernameEditText.setError("Username is required");
             return;
@@ -70,16 +72,53 @@ public class login extends AppCompatActivity {
             passwordEditText.setError("Password is required");
             return;
         }
+        authenticateUser(username, password);
+    }
 
-        // TODO: Implement login logic (e.g., authenticate with server, check credentials)
+    private void authenticateUser(final String email, final String password) {
+        String url = "http://13.234.41.119/devenv/ss_apis/login.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean status = jsonResponse.getBoolean("status");
+                            String msg = jsonResponse.getString("msg");
 
-        // For demonstration purposes, show a toast message
-        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            if (status) {
+                                String userId = jsonResponse.getString("user_id");
+                                Toast.makeText(login.this, msg, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(login.this, taskcard.class);
+                                intent.putExtra("user_id", userId);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(login.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(login.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(login.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
 
-        // Optionally, navigate to another activity after successful login
-        Intent intent = new Intent(login.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     private void navigateToRegisterActivity() {

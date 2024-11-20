@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/landingpage_gradient"
     tools:context=".login">
 
     <androidx.cardview.widget.CardView
@@ -54,11 +54,12 @@
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_margin="4dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/textview_border"
                 android:fontFamily="@font/kasepi"
+                android:textColorHint="@color/black"
                 android:hint="@string/enter_your_username"
                 android:inputType="text"
                 android:padding="12dp" />
@@ -66,14 +67,14 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_margin="4dp"
                 android:layout_marginBottom="8dp"
                 android:autofillHints=""
                 android:background="@drawable/textview_border"
                 android:fontFamily="@font/kasepi"
                 android:hint="@string/password"
-
+                android:textColorHint="@color/black"
                 android:inputType="textPassword"
                 android:padding="12dp" />
 

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/landingpage_gradient"
     tools:context=".register">
 
     <androidx.cardview.widget.CardView
@@ -58,12 +58,13 @@
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:hint="@string/enter_email"
                 android:fontFamily="@font/kasepi"
                 android:background="@drawable/textview_border"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:inputType="textEmailAddress"
                 android:layout_margin="4dp"
                 android:layout_marginBottom="8dp"
@@ -72,10 +73,11 @@
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/enter_your_username"
                 android:fontFamily="@font/kasepi"
+                android:textColorHint="@color/black"
                 android:inputType="text"
                 android:background="@drawable/textview_border"
                 android:padding="12dp"
@@ -85,7 +87,8 @@
             <EditText
                 android:id="@+id/firstName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
+                android:textColorHint="@color/black"
                 android:hint="@string/enter_first_name"
                 android:fontFamily="@font/kasepi"
                 android:padding="12dp"
@@ -99,10 +102,10 @@
                 android:id="@+id/lastName"
                 android:layout_margin="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:fontFamily="@font/kasepi"
                 android:padding="12dp"
-
+                android:textColorHint="@color/black"
                 android:background="@drawable/textview_border"
                 android:hint="@string/enter_last_name"
                 android:inputType="text"
@@ -112,12 +115,12 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:hint="@string/password"
                 android:fontFamily="@font/kasepi"
                 android:layout_margin="4dp"
                 android:padding="12dp"
-
+                android:textColorHint="@color/black"
                 android:background="@drawable/textview_border"
                 android:inputType="textPassword"
                 android:layout_marginBottom="16dp"/>
@@ -125,12 +128,12 @@
             <EditText
                 android:id="@+id/passwordAgain"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:hint="@string/repeat_password"
                 android:layout_margin="4dp"
                 android:fontFamily="@font/kasepi"
                 android:padding="12dp"
-
+                android:textColorHint="@color/black"
                 android:background="@drawable/textview_border"
                 android:inputType="textPassword"
                 android:layout_marginBottom="16dp"/>

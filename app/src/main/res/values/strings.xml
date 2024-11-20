@@ -13,4 +13,13 @@
     <string name="create_an_account_register">Create an account? Register</string>
     <string name="login">Login</string>
     <string name="back">Back</string>
+
+        <string-array name="status_options">
+            <item>Yet to start</item>
+            <item>In progress</item>
+            <item>Completed</item>
+            <item>Hold</item>
+        </string-array>
+
+
 </resources>

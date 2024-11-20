@@ -15,6 +15,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class register extends AppCompatActivity {
 
     private EditText emailEditText, usernameEditText, firstNameEditText, lastNameEditText, passwordEditText, passwordAgainEditText;
@@ -106,15 +118,56 @@ public class register extends AppCompatActivity {
             return;
         }
 
-        // TODO: Implement registration logic (e.g., send data to server, save to local database)
+        // Call the API to register the user
+        registerUserApi(email, username, password);
+    }
 
-        // For demonstration purposes, show a toast message
-        Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+    private void registerUserApi(final String email, final String username, final String password) {
+        String url = "http://13.234.41.119/devenv/ss_apis/signup.php";
 
-        // Optionally, navigate to another activity after successful registration
-        Intent intent = new Intent(register.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean status = jsonResponse.getBoolean("status");
+                            String msg = jsonResponse.getString("msg");
+
+                            if (status) {
+                                Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();
+
+                                // Navigate to the login activity
+                                Intent intent = new Intent(register.this, login.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(register.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(register.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("username", username);
+                params.put("password", password);
+                return params;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     private void navigateToLoginActivity() {
