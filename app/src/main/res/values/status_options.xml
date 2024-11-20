@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="status_options">
-        <item>Yet to start</item>
-        <item>In progress</item>
-        <item>Completed</item>
-        <item>Hold</item>
-    </string-array>
-</resources>
