@@ -8,14 +8,14 @@
     android:background="@drawable/landingpage_gradient"
     tools:context=".login">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,74 +27,85 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:elevation="4dp"
                 android:fontFamily="@font/georgia"
                 android:padding="12dp"
                 android:text="Login"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:textAllCaps="false" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/kasepi"
-                android:padding="16dp"
+
                 android:text="Welcome back! Please enter your details."
-                android:textColor="@android:color/holo_purple"
+                android:textColor="#2962FF"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/username"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/usernameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="4dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/textview_border"
-                android:fontFamily="@font/kasepi"
-                android:textColorHint="@color/black"
-                android:hint="@string/enter_your_username"
-                android:inputType="text"
-                android:padding="12dp" />
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
 
-            <EditText
-                android:id="@+id/password"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kasepi"
+                    android:hint="@string/enter_your_username"
+                    android:inputType="text"
+                    android:padding="20dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="4dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:autofillHints=""
-                android:background="@drawable/textview_border"
-                android:fontFamily="@font/kasepi"
-                android:hint="@string/password"
-                android:textColorHint="@color/black"
-                android:inputType="textPassword"
-                android:padding="12dp" />
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
 
-            <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kasepi"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:padding="20dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#111111"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="18dp"
                 android:layout_marginVertical="9dp"
                 android:fontFamily="@font/kasepi"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"
                 android:text="@string/login"
-                />
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:backgroundTint="#111111"
+                app:cornerRadius="24dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
 
-
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/registerLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,9 +116,8 @@
                 android:textColor="#2962FF"
                 android:textSize="16sp" />
 
-
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

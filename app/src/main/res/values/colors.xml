@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_light_gray">#D3D3D3</color>
+    <color name="rounded_background_stroke">#000000</color> <!-- Black color for stroke -->
+    <color name="rounded_background_tint">#FFFFFF</color>
 </resources>

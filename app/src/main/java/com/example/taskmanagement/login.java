@@ -3,6 +3,7 @@ package com.example.taskmanagement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +12,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -76,23 +74,24 @@ public class login extends AppCompatActivity {
     }
 
     private void authenticateUser(final String email, final String password) {
-        String url = "http://13.234.41.119/devenv/ss_apis/login.php";
+//        String url = "http://13.234.41.119/devenv/ss_apis/login.php";
+        String url ="http://10.0.2.2:8000/api/login/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("response",response);
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean status = jsonResponse.getBoolean("status");
                             String msg = jsonResponse.getString("msg");
-
+                            String userId = jsonResponse.getString("user_id");
                             if (status) {
-                                String userId = jsonResponse.getString("user_id");
                                 Toast.makeText(login.this, msg, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(login.this, taskcard.class);
-                                intent.putExtra("user_id", userId);
+                                Intent intent = new Intent(login.this, dashboard.class);
+//                                intent.putExtra("user_id", userId);
                                 startActivity(intent);
-                                finish();
+                               // finish();
                             } else {
                                 Toast.makeText(login.this, msg, Toast.LENGTH_SHORT).show();
                             }

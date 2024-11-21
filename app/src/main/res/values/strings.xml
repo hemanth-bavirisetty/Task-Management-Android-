@@ -14,12 +14,18 @@
     <string name="login">Login</string>
     <string name="back">Back</string>
 
-        <string-array name="status_options">
-            <item>Yet to start</item>
-            <item>In progress</item>
-            <item>Completed</item>
-            <item>Hold</item>
-        </string-array>
+    <string-array name="status_options">
+        <item>Yet to start</item>
+        <item>In progress</item>
+        <item>Completed</item>
+        <item>Hold</item>
+    </string-array>
 
+
+    <string-array name="priority_options">
+        <item>High</item>
+        <item>Medium</item>
+        <item>low</item>
+    </string-array>
 
 </resources>

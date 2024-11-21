@@ -3,6 +3,7 @@ package com.example.taskmanagement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,14 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class register extends AppCompatActivity {
 
@@ -119,31 +117,36 @@ public class register extends AppCompatActivity {
         }
 
         // Call the API to register the user
-        registerUserApi(email, username, password);
+        registerUserApi(email, username, firstName, lastName, password);
     }
 
-    private void registerUserApi(final String email, final String username, final String password) {
-        String url = "http://13.234.41.119/devenv/ss_apis/signup.php";
+    private void registerUserApi(final String email, final String username, final String firstName, final String lastName, final String password) {
+        String url = "http://10.0.2.2:8000/api/register/";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        // Create JSON object with the user data
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("email", email);
+            jsonBody.put("username", username);
+            jsonBody.put("first_name", firstName);
+            jsonBody.put("last_name", lastName);
+            jsonBody.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean status = jsonResponse.getBoolean("status");
-                            String msg = jsonResponse.getString("msg");
+                            String msg = response.getString("message");
+                            Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();
 
-                            if (status) {
-                                Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();
-
-                                // Navigate to the login activity
-                                Intent intent = new Intent(register.this, login.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+                            // Navigate to the login activity
+                            Intent intent = new Intent(register.this, login.class);
+                            startActivity(intent);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(register.this, "Error parsing response", Toast.LENGTH_SHORT).show();
@@ -153,21 +156,19 @@ public class register extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(register.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse != null) {
+                            String errorMessage = new String(error.networkResponse.data);
+                            Log.e("registerUserApi", "Error: " + error.getMessage() + ", Response: " + errorMessage);
+                            Toast.makeText(register.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("registerUserApi", "Error: " + error.getMessage());
+                            Toast.makeText(register.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("username", username);
-                params.put("password", password);
-                return params;
-            }
-        };
+                });
 
         // Add the request to the RequestQueue.
-        Volley.newRequestQueue(this).add(stringRequest);
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
     private void navigateToLoginActivity() {
