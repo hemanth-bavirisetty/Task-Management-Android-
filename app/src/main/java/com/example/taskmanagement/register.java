@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +21,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class register extends AppCompatActivity {
 
@@ -86,6 +91,11 @@ public class register extends AppCompatActivity {
             return;
         }
 
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Invalid email format");
+            return;
+        }
+
         if (TextUtils.isEmpty(username)) {
             usernameEditText.setError("Username is required");
             return;
@@ -106,6 +116,11 @@ public class register extends AppCompatActivity {
             return;
         }
 
+        if (password.length() < 8) {
+            passwordEditText.setError("Password must be at least 8 characters long");
+            return;
+        }
+
         if (TextUtils.isEmpty(passwordAgain)) {
             passwordAgainEditText.setError("Please confirm your password");
             return;
@@ -116,8 +131,49 @@ public class register extends AppCompatActivity {
             return;
         }
 
-        // Call the API to register the user
-        registerUserApi(email, username, firstName, lastName, password);
+        // Check if the username is unique
+        checkUsernameUniqueness(username, email, firstName, lastName, password);
+    }
+
+    private void checkUsernameUniqueness(final String username, final String email, final String firstName, final String lastName, final String password) {
+        String url = "http://10.0.2.2:8000/api/check_username/";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean isUnique = jsonResponse.getBoolean("is_unique");
+                            if (isUnique) {
+                                // Username is unique, proceed with registration
+                                registerUserApi(email, username, firstName, lastName, password);
+                            } else {
+                                usernameEditText.setError("Username is already taken");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(register.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("checkUsernameUniqueness", "Error: " + error.getMessage());
+                        Toast.makeText(register.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                return params;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     private void registerUserApi(final String email, final String username, final String firstName, final String lastName, final String password) {
@@ -139,6 +195,7 @@ public class register extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("registerUserApi", "Response: " + response);
                         try {
                             String msg = response.getString("message");
                             Toast.makeText(register.this, msg, Toast.LENGTH_SHORT).show();

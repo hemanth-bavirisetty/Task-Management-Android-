@@ -5,4 +5,46 @@
     <color name="background_light_gray">#D3D3D3</color>
     <color name="rounded_background_stroke">#000000</color> <!-- Black color for stroke -->
     <color name="rounded_background_tint">#FFFFFF</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="background_color_1">#DBEAFE</color> <!-- Light blue -->
+    <color name="background_color_2">#DCFCE7</color> <!-- Light green -->
+    <color name="background_color_3">#F3E8FF</color> <!-- Light purple -->
+    <color name="background_color_4">#FEE2E2</color>
+    <!-- Light red --><!-- Replace with your desired color -->
+    <color name="gray_50">#F9FAFB</color>
+    <color name="gray_100">#F3F4F6</color>
+    <color name="gray_500">#6B7280</color>
+    <color name="gray_600">#4B5563</color>
+    <color name="gray_700">#374151</color>
+    <color name="gray_800">#1F2937</color>
+    <color name="gray_900">#111827</color>
+
+    <!-- Blue Shades -->
+    <color name="blue_100">#DBEAFE</color>
+    <color name="blue_800">#1E40AF</color>
+
+    <!-- Yellow Shades -->
+    <color name="yellow_100">#FEF3C7</color>
+    <color name="yellow_800">#B45309</color>
+
+    <!-- Red Shades -->
+    <color name="red_100">#FEE2E2</color>
+    <color name="red_500">#EF4444</color>
+    <color name="red_600">#DC2626</color>
+
+    <!-- Green Shades -->
+    <color name="green_100">#D1FAE5</color>
+    <color name="green_600">#059669</color>
+
+    <!-- Purple Shades -->
+    <color name="purple_100">#EDE9FE</color>
+    <color name="purple_600">#7C3AED</color>
+    <color name="purple_800">#5B21B6</color>
+
+    <!-- Orange Shades -->
+    <color name="orange_100">#FFEDD5</color>
+    <color name="orange_600">#EA580C</color>
+    <color name="background_light">#FAFAFA</color>
+    <color name="blue_600">#1E88E5</color>
+
 </resources>

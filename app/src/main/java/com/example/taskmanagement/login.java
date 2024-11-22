@@ -73,19 +73,19 @@ public class login extends AppCompatActivity {
         authenticateUser(username, password);
     }
 
-    private void authenticateUser(final String email, final String password) {
+    private void authenticateUser(final String username, final String password) {
 //        String url = "http://13.234.41.119/devenv/ss_apis/login.php";
         String url ="http://10.0.2.2:8000/api/login/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("response",response);
+                        Log.d("LoginApiResponse","response" +  response);
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean status = jsonResponse.getBoolean("status");
-                            String msg = jsonResponse.getString("msg");
-                            String userId = jsonResponse.getString("user_id");
+                            String msg = jsonResponse.getString("message");
+                            String userName = jsonResponse.getString("username");
                             if (status) {
                                 Toast.makeText(login.this, msg, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(login.this, dashboard.class);
@@ -110,7 +110,7 @@ public class login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
+                params.put("username", username);
                 params.put("password", password);
                 return params;
             }
@@ -119,6 +119,10 @@ public class login extends AppCompatActivity {
         // Add the request to the RequestQueue.
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
+
+
+
 
     private void navigateToRegisterActivity() {
         Intent intent = new Intent(login.this, register.class);
